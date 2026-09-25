@@ -1,0 +1,20 @@
+{
+  "name": "auto-claude",
+  "version": "1.0.0",
+  "description": "Auto-routing model selector for the Claude API. Classifies each prompt by complexity and routes it to the cheapest capable model (Haiku / Sonnet / Opus / Fable), with automatic fallback on overload and per-request cost tracking.",
+  "type": "module",
+  "bin": {
+    "auto-claude": "./src/cli.js"
+  },
+  "main": "./src/cli.js",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "start": "node src/cli.js"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.128.0",
+    "zod": "^4.6.5"
+  }
+}
