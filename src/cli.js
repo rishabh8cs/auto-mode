@@ -1,9 +1,19 @@
 #!/usr/bin/env node
 import readline from "node:readline";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+import { config as loadEnv } from "dotenv";
 import Anthropic from "@anthropic-ai/sdk";
 import { TIERS } from "./models.js";
 import { selectModel, runWithFallback } from "./router.js";
 import { calculateCost, formatUsd } from "./pricing.js";
+
+// Load ANTHROPIC_API_KEY (and anything else) from a .env file next to the
+// project root — resolved by script location, not cwd, so `auto-claude`
+// works the same whether you're inside the repo or linked globally and run
+// it from elsewhere. Never overrides a var already set in the shell.
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+loadEnv({ path: path.join(__dirname, "..", ".env"), quiet: true });
 
 const COLOR = {
   reset: "\x1b[0m",

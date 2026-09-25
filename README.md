@@ -28,9 +28,24 @@ request retries on the next cheaper tier in the chain
 npm install
 ```
 
-Credentials are resolved by the SDK automatically — set `ANTHROPIC_API_KEY`,
-or run `ant auth login` if you use the Anthropic CLI. Nothing needs to be
-hardcoded.
+Credentials are resolved automatically, checked in this order:
+
+1. `ANTHROPIC_API_KEY` already set in your shell
+2. A `.env` file in the project root (create one — it's git-ignored)
+3. An `ant auth login` profile, if you use the Anthropic CLI
+
+The `.env` route is recommended: it's set once and just works, without
+polluting your global shell environment (a global `ANTHROPIC_API_KEY` export
+also gets picked up by other tools, like Claude Code, and can override their
+own login).
+
+```bash
+echo 'ANTHROPIC_API_KEY=sk-ant-...' > .env
+```
+
+Get a key at https://console.anthropic.com/settings/keys. Never paste a key
+into a chat, commit, or issue — treat one as compromised the moment it's
+exposed anywhere outside your own shell/`.env`, and revoke + regenerate it.
 
 ## Usage
 
